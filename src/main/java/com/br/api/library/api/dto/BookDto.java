@@ -1,10 +1,11 @@
 package com.br.api.library.api.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class BookDto {
 
     private Long id;
