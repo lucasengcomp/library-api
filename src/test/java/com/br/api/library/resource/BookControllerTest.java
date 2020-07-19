@@ -1,6 +1,6 @@
 package com.br.api.library.resource;
 
-import com.br.api.library.api.dto.BookDto;
+import com.br.api.library.api.dto.BookDTO;
 import com.br.api.library.api.model.entity.Book;
 import com.br.api.library.service.BookService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -40,9 +40,7 @@ public class BookControllerTest {
     @DisplayName("Deve criar um livro com sucesso")
     public void createBookTest() throws Exception {
 
-
-
-        BookDto dto = BookDto.builder().author("Artur").title("As aventuras").isbn("001").build();
+        BookDTO dto = BookDTO.builder().author("Artur").title("As aventuras").isbn("001").build();
         Book savedBook = Book.builder().id(101L).author("Artur").title("As aventuras").isbn("001").build();
 
         BDDMockito.given(service.save(Mockito.any(Book.class))).willReturn(savedBook);
