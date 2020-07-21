@@ -5,15 +5,12 @@ import com.br.api.library.api.exceptions.ApiErrors;
 import com.br.api.library.api.model.entity.Book;
 import com.br.api.library.service.BookService;
 import org.modelmapper.ModelMapper;
-import org.springframework.boot.context.properties.bind.BindResult;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/books")
