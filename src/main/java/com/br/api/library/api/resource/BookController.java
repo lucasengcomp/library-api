@@ -7,6 +7,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/books")
 public class BookController {
@@ -21,7 +23,7 @@ public class BookController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public BookDTO create(@RequestBody BookDTO dto) {
+    public BookDTO create(@RequestBody @Valid BookDTO dto) {
 
         Book entity = modelMapper.map(dto, Book.class);
 
