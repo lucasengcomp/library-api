@@ -1,13 +1,19 @@
 package com.br.api.library.api.resource;
 
 import com.br.api.library.api.dto.BookDTO;
+import com.br.api.library.api.exceptions.ApiErrors;
 import com.br.api.library.api.model.entity.Book;
 import com.br.api.library.service.BookService;
 import org.modelmapper.ModelMapper;
+import org.springframework.boot.context.properties.bind.BindResult;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/books")
@@ -30,5 +36,16 @@ public class BookController {
         entity = service.save(entity);
 
         return modelMapper.map(entity, BookDTO.class);
+    }
+
+    /*
+    * Lança um erro quando os dados são informados errados
+    * */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiErrors handleValidationExceptions(MethodArgumentNotValidException exception) {
+        BindingResult bindingResult = exception.getBindingResult();
+
+        return new ApiErrors(bindingResult);
     }
 }
