@@ -40,7 +40,7 @@ public class BookControllerTest {
 
     @Test
     @DisplayName("Deve criar um livro com sucesso")
-    public BookDTO createBookTest() throws Exception {
+    public void createBookTest() throws Exception {
 
         BookDTO dto = BookDTO.builder().author("Artur").title("As aventuras").isbn("001").build();
         Book savedBook = Book.builder().id(101L).author("Artur").title("As aventuras").isbn("001").build();
@@ -61,7 +61,6 @@ public class BookControllerTest {
                 .andExpect(jsonPath("title").value(dto.getTitle()))
                 .andExpect(jsonPath("author ").value(dto.getAuthor()))
                 .andExpect(jsonPath("isbn").value(dto.getIsbn()));
-        return dto;
     }
 
     @Test
@@ -85,7 +84,7 @@ public class BookControllerTest {
     @DisplayName("Deve lançar um erro ao tentar cadastrar um livro com ISBN já utilizado por outro livro")
     public void createBookWithDuplicateIsbn() throws Exception {
 
-        BookDTO dto = createBookTest();
+        BookDTO dto = createNewBook();
 
         String json = new ObjectMapper().writeValueAsString(dto);
 
@@ -109,8 +108,8 @@ public class BookControllerTest {
 
     }
 
-    public void createNewBook() {
-        BookDTO.builder().author("Artur").title("As aventuras").isbn("001").build();
+    public BookDTO createNewBook() {
+        return BookDTO.builder().author("Artur").title("As aventuras").isbn("001").build();
     }
 
 }

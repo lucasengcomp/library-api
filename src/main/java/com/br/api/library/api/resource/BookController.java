@@ -2,6 +2,7 @@ package com.br.api.library.api.resource;
 
 import com.br.api.library.api.dto.BookDTO;
 import com.br.api.library.api.exceptions.ApiErrors;
+import com.br.api.library.api.exceptions.BusinessException;
 import com.br.api.library.api.model.entity.Book;
 import com.br.api.library.service.BookService;
 import org.modelmapper.ModelMapper;
@@ -44,5 +45,11 @@ public class BookController {
         BindingResult bindingResult = exception.getBindingResult();
 
         return new ApiErrors(bindingResult);
+    }
+
+    @ExceptionHandler(BusinessException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiErrors handleBusinessException(BusinessException ex) {
+        return new ApiErrors(ex);
     }
 }
