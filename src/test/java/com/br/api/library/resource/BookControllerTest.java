@@ -88,7 +88,7 @@ public class BookControllerTest {
 
         String json = new ObjectMapper().writeValueAsString(dto);
 
-        String mensagemErro = "Isbn já cadastrado!";
+        String mensagemErro = "ISBN já está cadastrada!";
 
         BDDMockito.given(service.save(Mockito.any(Book.class)))
                 .willThrow(new BusinessException(mensagemErro));

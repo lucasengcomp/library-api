@@ -1,5 +1,6 @@
 package com.br.api.library.service.impl;
 
+import com.br.api.library.api.exceptions.BusinessException;
 import com.br.api.library.api.model.entity.Book;
 import com.br.api.library.api.model.repositoy.BookRepository;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,12 @@ public class BookServiceImpl implements com.br.api.library.service.BookService {
         this.repository = repository;
     }
 
+    @Override
     public Book save(Book book) {
+        if (repository.existsByIsbn(book.getIsbn())) {
+            throw new BusinessException("ISBN já está cadastrada!");
+        }
         return repository.save(book);
     }
+
 }
