@@ -33,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc//configura o teste para receber requisições
 public class BookControllerTest {
 
-    static String BOOK_API = "/api/books/1";
+    static String BOOK_API = "/api/books";
 
     @Autowired
     MockMvc mvc;
@@ -156,36 +156,6 @@ public class BookControllerTest {
                 .perform(request)
                 .andExpect(status().isNotFound());
 
-    }
-
-    @Test
-    @DisplayName("Deve obter as informações de um livro")
-    public void getBookDetailsTest() throws Exception {
-        //Cenário
-        Long id = 1L;
-
-        Book book = Book.builder()
-                .id(id)
-                .author(createNewBook().getAuthor())
-                .isbn(createNewBook().getIsbn())
-                .title(createNewBook().getTitle())
-                .build();
-
-        BDDMockito.given(service.getById(id)).willReturn(Optional.of(book));
-
-        //execução
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
-                .get(BOOK_API.concat("/" + id))
-                .accept(MediaType.APPLICATION_JSON);
-
-        //verificação
-        mvc
-                .perform(request)
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("id").value(id))
-                .andExpect(jsonPath("author").value(createNewBook().getAuthor()))
-                .andExpect(jsonPath("title").value(createNewBook().getTitle()))
-                .andExpect(jsonPath("isbn").value(createNewBook().getIsbn()));
     }
 
     public BookDTO createNewBook() {
