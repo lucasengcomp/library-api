@@ -34,7 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc//configura o teste para receber requisições
 public class BookControllerTest {
 
-    static String BOOK_API = "/api/books/1";
+    static String BOOK_API = "/api/books/";
 
     @Autowired
     MockMvc mvc;
@@ -189,7 +189,6 @@ public class BookControllerTest {
                 .andExpect(jsonPath("isbn").value(createNewBook().getIsbn()));
     }
 
-
     @Test
     @DisplayName("Deve deletar um livro")
     public void deleteBookTest() throws Exception {
@@ -201,10 +200,25 @@ public class BookControllerTest {
                 .delete(BOOK_API.concat("/" + 1));
 
         mvc.perform(request)
-            .andExpect(status().isNoContent());
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    @DisplayName("Deve retornar resouce not found quando não encontrar  um livro para deletar")
+    public void deleteInextistentBookTest() throws Exception {
+
+        BDDMockito.given(service.getById(anyLong())).willReturn(Optional.empty());
+
+        //execução
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .delete(BOOK_API.concat("/" + 1));
+
+        mvc.perform(request)
+                .andExpect(status().isNotFound());
     }
 
     public BookDTO createNewBook() {
+
         return BookDTO.builder().author("Artur").title("As aventuras").isbn("001").build();
     }
 

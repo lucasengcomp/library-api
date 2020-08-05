@@ -29,4 +29,9 @@ public class BookServiceImpl implements com.br.api.library.service.BookService {
         return Optional.empty();
     }
 
+    @Override
+    public void delete(Book book) {
+
+    }
+
 }
