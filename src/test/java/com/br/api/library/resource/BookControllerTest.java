@@ -204,7 +204,7 @@ public class BookControllerTest {
     }
 
     @Test
-    @DisplayName("Deve retornar resouce not found quando não encontrar  um livro para deletar")
+    @DisplayName("Deve retornar resouce not found quando não encontrar um livro para deletar")
     public void deleteInextistentBookTest() throws Exception {
 
         BDDMockito.given(service.getById(anyLong())).willReturn(Optional.empty());
@@ -260,7 +260,7 @@ public class BookControllerTest {
     }
 
     @Test
-    @DisplayName("Deve retornar um 404 atualizar um livro")
+    @DisplayName("Deve retornar um 404 quando tentar atualizar um livro que não existe")
     public void updateInexistentBookTest() throws Exception {
 
         String json = new ObjectMapper().writeValueAsString(createNewBook());

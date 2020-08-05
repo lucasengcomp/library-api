@@ -54,16 +54,15 @@ public class BookController {
     @PutMapping("{id}")
     public BookDTO update(@PathVariable Long id, BookDTO dto) {
 
-        Book book = service.getById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        book.setAuthor(dto.getAuthor());
-        book.setTitle(dto.getTitle());
+        return service.getById(id).map(book -> {
 
-        book = service.update(book);
+            book.setAuthor(dto.getAuthor());
+            book.setTitle(dto.getTitle());
+            book = service.update(book);
 
-        return modelMapper.map(book, BookDTO.class);
+            return modelMapper.map(book, BookDTO.class);
+        } ).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
-
-
 
     /*
     * Lança um erro quando os dados são informados errados
