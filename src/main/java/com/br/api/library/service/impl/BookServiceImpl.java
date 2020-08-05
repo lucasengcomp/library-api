@@ -34,4 +34,9 @@ public class BookServiceImpl implements com.br.api.library.service.BookService {
 
     }
 
+    @Override
+    public Book update(Book book) {
+        return null;
+    }
+
 }
