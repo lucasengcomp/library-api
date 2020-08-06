@@ -26,7 +26,7 @@ public class BookServiceImpl implements com.br.api.library.service.BookService {
 
     @Override
     public Optional<Book> getById(Long id) {
-        return Optional.empty();
+        return this.repository.findById(id);
     }
 
     @Override
