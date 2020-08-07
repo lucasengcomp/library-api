@@ -31,12 +31,18 @@ public class BookServiceImpl implements com.br.api.library.service.BookService {
 
     @Override
     public void delete(Book book) {
-
+        if (book.getId() == null || book == null) {
+            throw new IllegalArgumentException("Book id cant be null!");
+        }
+        this.repository.delete(book);
     }
 
     @Override
     public Book update(Book book) {
-        return null;
+        if (book.getId() == null || book == null) {
+            throw new IllegalArgumentException("Book id cant be null!");
+        }
+        return  this.repository.save(book);
     }
 
 }

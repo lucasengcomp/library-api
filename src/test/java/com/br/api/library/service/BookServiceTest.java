@@ -9,7 +9,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
@@ -110,6 +109,29 @@ public class BookServiceTest {
         Optional<Book> book = service.getById(id);
 
         assertThat(book.isPresent()).isFalse();
+    }
+
+    @Test
+    @DisplayName("Deve deletar um livro por id")
+    public void deleteBookById() {
+        //cenário
+        Book book = Book.builder().id(1L).build();
+
+        org.junit.jupiter.api.Assertions.assertDoesNotThrow( () -> service.delete(book));
+
+        //verifica que chamou o objeto pelo id
+        Mockito.verify(repository, Mockito.times(1)).delete(book);
+    }
+
+    @Test
+    @DisplayName("Deve ocorrer erro ao tentar deletar um livro inexistente")
+    public void deleteInvalidBookTest() {
+        Book book = new Book();
+
+        org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> service.delete(book));
+
+        //verifica que nunca chamou o objeto
+        Mockito.verify(repository, Mockito.never()).delete(book);
     }
 
 }
