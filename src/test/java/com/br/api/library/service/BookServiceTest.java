@@ -113,7 +113,7 @@ public class BookServiceTest {
 
     @Test
     @DisplayName("Deve deletar um livro por id")
-    public void deleteBookById() {
+    public void deleteBookTest() {
         //cenário
         Book book = Book.builder().id(1L).build();
 
