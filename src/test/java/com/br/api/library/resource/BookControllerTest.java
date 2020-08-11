@@ -301,7 +301,7 @@ public class BookControllerTest {
 
         String queryString = String.format("?title=%s&author=%s&page=0&size=100",
                 book.getTitle(),
-                book.getTitle());
+                book.getAuthor());
 
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
                 .get(BOOK_API.concat(queryString))
@@ -311,8 +311,8 @@ public class BookControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("content", Matchers.hasSize(1)))
                 .andExpect(jsonPath("totalElements").value(1))
-                .andExpect(jsonPath("pegeable size").value(1))
-                .andExpect(jsonPath("pegeable pageNumver").value(0));
+                .andExpect(jsonPath("pegeable.size").value(100))
+                .andExpect(jsonPath("pegeable.pageNumber").value(0));
     }
 
 }
